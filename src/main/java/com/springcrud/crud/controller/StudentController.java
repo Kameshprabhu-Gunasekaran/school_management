@@ -15,42 +15,43 @@ import com.springcrud.crud.entity.StudentEntity;
 import com.springcrud.crud.service.StudentService;
 
 @RestController
-@RequestMapping("/api/student")
+@RequestMapping("/api/v1/student")
 public class StudentController {
-    private final StudentService studentsService;
+    private final StudentService studentService;
 
-    public StudentController(final StudentService studentsService) {
-        this.studentsService = studentsService;
+    public StudentController(final StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    @PostMapping("create")
-    public StudentEntity createStudents(@RequestBody final StudentEntity students) {
-        return this.studentsService.createStudents(students);
+    @PostMapping("/create")
+    public StudentEntity createStudent(@RequestBody final StudentEntity student) {
+        return this.studentService.createStudents(student);
     }
 
-    @GetMapping("retrieve/{id}")
-    public StudentEntity getStudentById(@PathVariable("id") final Long id) {
-        return this.studentsService.getStudentById(id);
-    }
-//    @GetMapping("retrieve")
-//    public List<StudentEntity>getStudent(@RequestBody final String name){
-//        System.err.println(name);
-//        return this.studentsService.getStudent(name);
-//  }
-
-    @GetMapping("retrieveAll")
-    public List<StudentEntity> getAllStudents() {
-        return this.studentsService.getAllStudents();
+    @GetMapping("/retrieve/{id}")
+    public StudentEntity getStudentById(@PathVariable Long id) {
+        return this.studentService.retrieveStudentById(id);
     }
 
-    @PutMapping("update/{id}")
-    public StudentEntity updateStudentById(@RequestBody final StudentEntity students, @PathVariable("id") final Long id) {
-        students.setId(id);
-        return this.studentsService.updateStudentById(id,students);
+    @GetMapping("/retrieve-name")
+    public List<StudentEntity> getStudentByName(@PathVariable String name) {
+        return this.studentService.retrieveStudentByName(name);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteStudentById(@PathVariable("id") final Long id) {
-        this.studentsService.deleteStudentById(id);
+    @GetMapping("/retrieve-all")
+    public List<StudentEntity> retrieveAll() {
+        return this.studentService.retrieveAllStudents();
     }
+
+    @PutMapping("/update/{id}")
+    public String updateStudentById (@PathVariable("id") Long id, @RequestBody StudentEntity student) {
+        System.out.println("working");
+        return this.studentService.updateStudent(id, student);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteStudentById (@PathVariable("id")  Long id) {
+        return this.studentService.deleteStudent(id);
+    }
+
 }
