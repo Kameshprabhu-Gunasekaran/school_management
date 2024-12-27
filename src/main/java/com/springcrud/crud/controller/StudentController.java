@@ -30,11 +30,12 @@ public class StudentController {
 
     @GetMapping("/retrieve/{id}")
     public StudentEntity getStudentById(@PathVariable Long id) {
+        //System.out.println("hii");
         return this.studentService.retrieveStudentById(id);
     }
 
-    @GetMapping("/retrieve-name")
-    public List<StudentEntity> getStudentByName(@PathVariable String name) {
+    @GetMapping("/retrieve-name/{name}")
+    public StudentEntity getStudentByName(@PathVariable  String name) {
         return this.studentService.retrieveStudentByName(name);
     }
 

@@ -28,19 +28,17 @@ public class StudentService {
     }
 
     public StudentEntity retrieveStudentById(Long id) {
+        //System.out.println(id);
         StudentEntity student = studentsRepository.findById(id).orElseThrow(null);
+        //System.out.println(student);
+        //System.out.print("workk");
         return student;
     }
 
 
-    public void studentName() {
-
-    }
-
-
-
-    public List<StudentEntity>retrieveStudentByName(final String name){
-        return this.studentsRepository.findByName(name);
+    public StudentEntity retrieveStudentByName(final String name){
+        Optional<StudentEntity> student= this.studentsRepository.findByName(name);
+        return student.orElseThrow();
     }
 
     public List<StudentEntity> retrieveAllStudents() {
